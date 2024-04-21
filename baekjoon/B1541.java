@@ -14,13 +14,14 @@ public class B1541 {
         String input = br.readLine();
 
         String[] expressions = input.split("-");
-        String[] plusNumbers = expressions[0].split("\\+");
-        for (String plusNumber : plusNumbers) {
-            result += Integer.parseInt(plusNumber);
-        }
-        for (int i = 1; i < expressions.length; i++) {
+
+        for (int i = 0; i < expressions.length; i++) {
             String[] numbers = expressions[i].split("\\+");
             for (String number : numbers) {
+                if (i == 0) {
+                    result += Integer.parseInt(number);
+                    continue;
+                }
                 result -= Integer.parseInt(number);
             }
         }
