@@ -8,6 +8,8 @@ public class B15649 {
 
     static int n;
     static int m;
+    static int[] result;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,32 +17,32 @@ public class B15649 {
         n = Integer.parseInt(inputs[0]); // 1 ~ 8
         m = Integer.parseInt(inputs[1]); // 1 ~ 8
 
-        func(new boolean[n + 1], m, "");
+        func(m);
     }
 
-    static void func(boolean[] visited, int count, String result) {
+    static void func(int count) {
         if (count == 0) {
             printResult(result);
             return;
         }
         if (count == m) {
             visited = new boolean[n + 1]; // init
+            result = new int[m + 1];
         }
         for (int i = 1; i <= n; i++) {
             if (visited[i]) {
                 continue;
             }
             visited[i] = true;
-            result += i;
-            func(visited, count - 1, result);
+            result[m - count + 1] = i;
+            func(count - 1);
             visited[i] = false;
-            result = result.substring(0, result.length() - 1);
         }
     }
 
-    static void printResult(String result) {
-        for (int i = 0; i < result.length(); i++) {
-            System.out.print(result.charAt(i) + " ");
+    static void printResult(int[] result) {
+        for (int i = 1; i <= m; i++) {
+            System.out.print(result[i] + " ");
         }
         System.out.println();
     }
