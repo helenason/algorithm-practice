@@ -24,25 +24,22 @@ public class B25916 {
 
         int left = 0;
         int right = 0;
-        int sum = nums[left];
-        while (right < n && left < n) {
+        int sum = 0;
+        while (right < n) {
             if (right < left) {
                 right = left; // init
-                sum = nums[left];
+                sum = 0; // init
+                continue;
             }
-            if (sum < m) {
+            if (sum + nums[right] < m) {
+                sum += nums[right];
                 result = Math.max(sum, result);
                 right++;
-                if (n <= right) {
-                    right = n - 1; // wait
-                    sum -= nums[left];
-                    left++;
-                }
-                sum += nums[right];
-            } else if (sum > m) {
+            } else if (sum + nums[right] > m) {
                 sum -= nums[left];
                 left++;
-            } else { // sum == m
+            } else { // sum + nums[right] == m
+                sum += nums[right];
                 result = Math.max(sum, result);
                 break;
             }
